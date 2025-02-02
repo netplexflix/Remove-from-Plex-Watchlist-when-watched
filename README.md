@@ -95,8 +95,6 @@ Removing 3 items from watchlist... [██████████] 100%
 ---
 
 ## ⚠️ Need Help or have Feedback?
-
-Found a bug or have a feature request?  
 - Join the [Discord](https://discord.gg/VBNUJd7tx3).
 - [Open an Issue](https://github.com/yourusername/Remove-from-Plex-Watchlist-when-watched/issues)  
 
