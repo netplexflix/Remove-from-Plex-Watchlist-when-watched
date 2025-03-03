@@ -9,9 +9,10 @@ Keep your watchlist clean and focused on content you haven't seen yet!
 ---
 
 ## ✨ Features
-- **Finds and lists**: Retrieves your watchlist and lists movies and/or TV Shows you've already watched
-- **Watchlist Cleanup**: Removes watched content from Plex Watchlist
-- **Dry run**: `remove_from_watchlist` flag for dry-run or actual removal
+- 👥 **User Selection**: Manage watchlist for any user (requires login credentials)
+- 🔎 **Finds and lists**: Retrieves your watchlist and lists movies and/or TV Shows you've already watched
+- 🧹 **Watchlist Cleanup**: Removes watched content from Plex Watchlist
+- ℹ️ **Dry run**: `remove_from_watchlist` flag for dry-run or actual removal
 
 ---
 
@@ -39,25 +40,25 @@ pip install -r requirements.txt
 
 ## ⚙️ Configuration
 
-Rename `config.example.yml` to `config.yml` and update:
+Rename `config.example.yml` to `config.yml` and update where necessary:
 
-```yaml
-# Required
-plex_url: http://localhost:32400
-plex_api_key: YOUR_PLEX_TOKEN
-movie_library_name: "Movies"
-tv_library_name: "TV Shows"
+### Required
+`plex_url:` http://localhost:32400 </br>
+`plex_api_key:` [Where to find your plex Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) </br>
+`movie_library_name:` e.g. "Movies" </br>
+`tv_library_name:` e.g. "TV Shows" </br>
 
-# Options
-remove_from_watchlist: false  # Set true to enable removal
-check_movies: true
-check_tv_shows: true
-```
+### Options
+`remove_from_watchlist:` Set to `true` to enable removal. `false` for dry-run listing only  </br>
+`check_movies:` whether or not to check movies </br>
+`check_tv_shows:` whether or not to check TV Shows
 
-**Configuration Guide:**  
-- `plex_api_key`: [Find your Plex token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/)  
-- Libraries must match exact names in your Plex server  
-- Set `remove_from_watchlist: false` for dry-run listing only  
+### Users
+> [!IMPORTANT]
+> For any user other than Admin, you'll need to provide the login credentials to edit the watchlist.
+
+`users:` Enter a comma separated list of users to process. You can enter `Admin` for the admin account.</br>
+`user_credentials:` Enter the name, username and password for each user (except Admin) you'd like to process.
 
 ---
 
