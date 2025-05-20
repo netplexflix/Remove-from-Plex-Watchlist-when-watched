@@ -25,7 +25,7 @@ cd Remove-from-Plex-Watchlist-when-watched
 ![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png) Or simply download by pressing the green 'Code' button above and then 'Download Zip'.
 
 ### 2️⃣ Install Requirements
-- Ensure you have [Python](https://www.python.org/downloads/) installed (`>=3.8` recommended)
+- Ensure you have [Python](https://www.python.org/downloads/) installed (`>=3.11` recommended)
 - Open a Terminal in the script's directory
 >[!TIP]
 >Windows Users: <br/>
