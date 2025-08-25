@@ -4,6 +4,8 @@ from plexapi.myplex import MyPlexAccount
 from urllib.parse import urlparse
 from plexapi.exceptions import BadRequest, Unauthorized
 
+Version: 1.1
+
 def print_progress(current, total, prefix=""):
     percent = current / total * 100
     bar_length = 30
