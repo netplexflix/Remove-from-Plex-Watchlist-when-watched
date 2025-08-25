@@ -2,6 +2,16 @@ plex_url: http://localhost:32400
 plex_api_key: YOUR_PLEX_API_KEY
 movie_library_name: "Movies"
 tv_library_name: "TV Shows"
-remove_from_watchlist: false  # Set to true to enable removal
+remove_from_watchlist: true  # Set to true to enable removal
 check_movies: true
 check_tv_shows: true
+
+users: Admin, User1, User2
+
+user_credentials:
+  "User1":
+    username: "user1@example.com"
+    password: "password1"
+  "User2":
+    username: "user2@example.com"
+    password: "password2"
