@@ -45,8 +45,8 @@ Rename `config.example.yml` to `config.yml` and update where necessary:
 ### Required
 `plex_url:` http://localhost:32400 </br>
 `plex_api_key:` [Where to find your plex Token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) </br>
-`movie_library_name:` e.g. "Movies" </br>
-`tv_library_name:` e.g. "TV Shows" </br>
+`movie_library_name:` e.g. "Movies, Movies4K" </br>
+`tv_library_name:` e.g. "TV Shows, Anime" </br>
 
 ### Options
 `remove_from_watchlist:` Set to `true` to enable removal. `false` for dry-run listing only  </br>

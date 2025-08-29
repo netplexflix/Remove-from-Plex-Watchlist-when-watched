@@ -4,7 +4,7 @@ from plexapi.myplex import MyPlexAccount
 from urllib.parse import urlparse
 from plexapi.exceptions import BadRequest, Unauthorized
 
-Version: 1.1
+Version: 1.2
 
 def print_progress(current, total, prefix=""):
     percent = current / total * 100
@@ -97,44 +97,52 @@ def process_user_watchlist(account, plex, config, username="Admin"):
     # Process libraries with progress
     if config['check_movies']:
         try:
-            movie_library = user_plex.library.section(config['movie_library_name'])
-            total = movie_library.totalSize
-            print(f"Scanning {total} movies in library for {username}...")
-            for index, movie in enumerate(movie_library.all(), 1):
-                # When using user's own connection, viewCount will be accurate for them
-                if movie.viewCount > 0:
-                    if tmdb_id := extract_tmdb_id(movie):
-                        if tmdb_id in [m['id'] for m in movies_in_watchlist]:
-                            movies_to_remove.append({
-                                'title': movie.title,
-                                'year': movie.year,
-                                'id': tmdb_id
-                            })
-                        
-                print_progress(index, total, f"Processing")
-            print()
+            # Handle comma-separated library names
+            library_names = [name.strip().strip('"') for name in config['movie_library_name'].split(',')]
+            
+            for lib_name in library_names:
+                movie_library = user_plex.library.section(lib_name)
+                total = movie_library.totalSize
+                print(f"Scanning {total} movies in {lib_name} library for {username}...")
+                for index, movie in enumerate(movie_library.all(), 1):
+                    # When using user's own connection, viewCount will be accurate for them
+                    if movie.viewCount > 0:
+                        if tmdb_id := extract_tmdb_id(movie):
+                            if tmdb_id in [m['id'] for m in movies_in_watchlist]:
+                                movies_to_remove.append({
+                                    'title': movie.title,
+                                    'year': movie.year,
+                                    'id': tmdb_id
+                                })
+                            
+                    print_progress(index, total, f"Processing")
+                print()
         except Exception as e:
             print(f"⚠️ Error accessing movie library for {username}: {str(e)}")
 
     if config['check_tv_shows']:
         try:
-            tv_library = user_plex.library.section(config['tv_library_name'])
-            total = tv_library.totalSize
-            print(f"Scanning {total} TV shows in library for {username}...")
-            for index, show in enumerate(tv_library.all(), 1):
-                # When using user's own connection, viewedLeafCount will be accurate for them
-                if hasattr(show, 'viewedLeafCount') and hasattr(show, 'leafCount'):
-                    if show.viewedLeafCount == show.leafCount and show.leafCount > 0:
-                        if tvdb_id := extract_tvdb_id(show):
-                            if tvdb_id in [t['id'] for t in tv_in_watchlist]:
-                                tv_shows_to_remove.append({
-                                    'title': show.title,
-                                    'year': show.year,
-                                    'id': tvdb_id
-                                })
-                        
-                print_progress(index, total, f"Processing")
-            print()
+            # Handle comma-separated library names
+            library_names = [name.strip().strip('"') for name in config['tv_library_name'].split(',')]
+            
+            for lib_name in library_names:
+                tv_library = user_plex.library.section(lib_name)
+                total = tv_library.totalSize
+                print(f"Scanning {total} TV shows in {lib_name} library for {username}...")
+                for index, show in enumerate(tv_library.all(), 1):
+                    # When using user's own connection, viewedLeafCount will be accurate for them
+                    if hasattr(show, 'viewedLeafCount') and hasattr(show, 'leafCount'):
+                        if show.viewedLeafCount == show.leafCount and show.leafCount > 0:
+                            if tvdb_id := extract_tvdb_id(show):
+                                if tvdb_id in [t['id'] for t in tv_in_watchlist]:
+                                    tv_shows_to_remove.append({
+                                        'title': show.title,
+                                        'year': show.year,
+                                        'id': tvdb_id
+                                    })
+                            
+                    print_progress(index, total, f"Processing")
+                print()
         except Exception as e:
             print(f"⚠️ Error accessing TV library for {username}: {str(e)}")
 
